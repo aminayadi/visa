@@ -1,0 +1,115 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="person">
+      <h2 data-cy="personDetailsHeading"><span>Person</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ person.id }}</span>
+        </dd>
+        <dt><span>Diplomaticmission</span></dt>
+        <dd>
+          <span>{{ person.diplomaticmission }}</span>
+        </dd>
+        <dt><span>Nationality</span></dt>
+        <dd>
+          <span>{{ person.nationality }}</span>
+        </dd>
+        <dt><span>Requestparty</span></dt>
+        <dd>
+          <span>{{ person.requestparty }}</span>
+        </dd>
+        <dt><span>Identity</span></dt>
+        <dd>
+          <span>{{ person.identity }}</span>
+        </dd>
+        <dt><span>Birthday</span></dt>
+        <dd>
+          <span>{{ person.birthday | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Passporttype</span></dt>
+        <dd>
+          <span>{{ person.passporttype }}</span>
+        </dd>
+        <dt><span>Passportnumber</span></dt>
+        <dd>
+          <span>{{ person.passportnumber }}</span>
+        </dd>
+        <dt><span>Expirationdate</span></dt>
+        <dd>
+          <span>{{ person.expirationdate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Visatype</span></dt>
+        <dd>
+          <span>{{ person.visatype }}</span>
+        </dd>
+        <dt><span>Reason</span></dt>
+        <dd>
+          <span>{{ person.reason }}</span>
+        </dd>
+        <dt><span>Otherreason</span></dt>
+        <dd>
+          <span>{{ person.otherreason }}</span>
+        </dd>
+        <dt><span>Guest</span></dt>
+        <dd>
+          <span>{{ person.guest }}</span>
+        </dd>
+        <dt><span>Adress</span></dt>
+        <dd>
+          <span>{{ person.adress }}</span>
+        </dd>
+        <dt><span>Administation</span></dt>
+        <dd>
+          <span>{{ person.administation }}</span>
+        </dd>
+        <dt><span>Automaticcheck</span></dt>
+        <dd>
+          <span>{{ person.automaticcheck }}</span>
+        </dd>
+        <dt><span>Manualcheck</span></dt>
+        <dd>
+          <span>{{ person.manualcheck }}</span>
+        </dd>
+        <dt><span>Entries</span></dt>
+        <dd>
+          <span>{{ person.entries }}</span>
+        </dd>
+        <dt><span>Exits</span></dt>
+        <dd>
+          <span>{{ person.exits }}</span>
+        </dd>
+        <dt><span>Lastmove</span></dt>
+        <dd>
+          <span>{{ person.lastmove }}</span>
+        </dd>
+        <dt><span>Summary</span></dt>
+        <dd>
+          <span>{{ person.summary }}</span>
+        </dd>
+        <dt><span>Request</span></dt>
+        <dd>
+          <span *ngFor="let request of person.requests; let last = last">
+            <a [routerLink]="['/request', request.id, 'view']">{{ request.id }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/person', person.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

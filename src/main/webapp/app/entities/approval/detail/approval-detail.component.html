@@ -1,0 +1,55 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="approval">
+      <h2 data-cy="approvalDetailsHeading"><span>Approval</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ approval.id }}</span>
+        </dd>
+        <dt><span>Decission</span></dt>
+        <dd>
+          <span>{{ approval.decission }}</span>
+        </dd>
+        <dt><span>Remarks</span></dt>
+        <dd>
+          <span>{{ approval.remarks }}</span>
+        </dd>
+        <dt><span>Createddate</span></dt>
+        <dd>
+          <span>{{ approval.createddate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Updatedate</span></dt>
+        <dd>
+          <span>{{ approval.updatedate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Request</span></dt>
+        <dd>
+          <span *ngFor="let request of approval.requests; let last = last">
+            <a [routerLink]="['/request', request.id, 'view']">{{ request.id }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+        <dt><span>User</span></dt>
+        <dd>
+          <span *ngFor="let user of approval.users; let last = last"> {{ user.login }}{{ last ? '' : ', ' }} </span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/approval', approval.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

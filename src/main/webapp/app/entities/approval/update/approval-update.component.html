@@ -1,0 +1,123 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-approval-heading" data-cy="ApprovalCreateUpdateHeading">Create or edit a Approval</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" for="field_id">ID</label>
+          <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_decission">Decission</label>
+          <input type="text" class="form-control" name="decission" id="field_decission" data-cy="decission" formControlName="decission" />
+          <div *ngIf="editForm.get('decission')!.invalid && (editForm.get('decission')!.dirty || editForm.get('decission')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('decission')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_remarks">Remarks</label>
+          <input type="text" class="form-control" name="remarks" id="field_remarks" data-cy="remarks" formControlName="remarks" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_createddate">Createddate</label>
+          <div class="d-flex">
+            <input
+              id="field_createddate"
+              data-cy="createddate"
+              type="datetime-local"
+              class="form-control"
+              name="createddate"
+              formControlName="createddate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          <div *ngIf="editForm.get('createddate')!.invalid && (editForm.get('createddate')!.dirty || editForm.get('createddate')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('createddate')?.errors?.required"> This field is required. </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('createddate')?.errors?.datetimelocal">
+              This field should be a date and time.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_updatedate">Updatedate</label>
+          <div class="d-flex">
+            <input
+              id="field_updatedate"
+              data-cy="updatedate"
+              type="datetime-local"
+              class="form-control"
+              name="updatedate"
+              formControlName="updatedate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          <div *ngIf="editForm.get('updatedate')!.invalid && (editForm.get('updatedate')!.dirty || editForm.get('updatedate')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('updatedate')?.errors?.required"> This field is required. </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('updatedate')?.errors?.datetimelocal">
+              This field should be a date and time.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label for="field_requests">Request</label>
+          <select
+            class="form-control"
+            id="field_requests"
+            data-cy="request"
+            multiple
+            name="requests"
+            formControlName="requests"
+            [compareWith]="compareRequest"
+          >
+            <option [ngValue]="requestOption" *ngFor="let requestOption of requestsSharedCollection">{{ requestOption.id }}</option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['requests'])!.invalid && (editForm.get(['requests'])!.dirty || editForm.get(['requests'])!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get(['requests'])?.errors?.required"> This field is required. </small>
+        </div>
+
+        <div class="row mb-3">
+          <label for="field_users">User</label>
+          <select
+            class="form-control"
+            id="field_users"
+            data-cy="user"
+            multiple
+            name="users"
+            formControlName="users"
+            [compareWith]="compareUser"
+          >
+            <option [ngValue]="userOption" *ngFor="let userOption of usersSharedCollection">{{ userOption.login }}</option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['users'])!.invalid && (editForm.get(['users'])!.dirty || editForm.get(['users'])!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get(['users'])?.errors?.required"> This field is required. </small>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
